@@ -2,9 +2,17 @@
 
 PATH="$PATH:/usr/local/bin/"
 
-if [ -z "$1" ]; then echo "SYNTAX: $0 <query>" >&2 ; exit 1; fi
+if [ -z "$1" ]; then
+  echo "SYNTAX: $0 <query>" >&2
+  exit 1
+fi
 
-if ! type jq >/dev/null 2>&1; then echo "Run 'brew install jq' first." >&2 ; exit 2; fi
+if ! type jq >/dev/null 2>&1; then
+  echo "Run 'brew install jq' first." >&2
+  exit 2
+fi
+
+query="$(echo "$1" | iconv -f utf-8-mac -t utf-8)"
 
 curl -s 'https://www2.deepl.com/jsonrpc' \
   -X POST -H 'Content-Type: application/json' \
@@ -17,4 +25,4 @@ curl -s 'https://www2.deepl.com/jsonrpc' \
   -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.1 Safari/605.1.15' \
   -H 'Referer: https://www.deepl.com/translator' \
   -H 'Accept-Language: en-us' \
-  --data-binary '{"jsonrpc":"2.0","method":"LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$(echo "$1" | iconv -f utf-8-mac -t utf-8)"'"}],"lang":{"user_preferred_langs":["FR","ES","EN","DE"],"source_lang_user_selected":"auto","target_lang":"auto"},"priority":1},"id":1}' | gunzip | jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}] }'
+  --data-binary '{"jsonrpc":"2.0","method":"LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'"}],"lang":{"user_preferred_langs":["FR","ES","EN","DE"],"source_lang_user_selected":"auto","target_lang":"auto"},"priority":1},"id":1}' | gunzip | jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}] }'

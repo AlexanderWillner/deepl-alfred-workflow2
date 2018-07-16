@@ -1,9 +1,10 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "SYNTAX: $0 <query>" 2>&1
-  exit 1
-fi
+PATH="$PATH:/usr/local/bin/"
+
+if [ -z "$1" ]; then echo "SYNTAX: $0 <query>" >&2 ; exit 1; fi
+
+if ! type jq >/dev/null 2>&1; then echo "Run 'brew install jq' first." >&2 ; exit 2; fi
 
 curl -s 'https://www2.deepl.com/jsonrpc' \
   -X POST -H 'Content-Type: application/json' \

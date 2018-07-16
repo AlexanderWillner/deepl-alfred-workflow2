@@ -14,7 +14,7 @@ workflow:
 	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh
 	
 feedback:
-	@open https://github.com/alexanderwillner/runMacOSinVirtualBox/issues
+	@open https://github.com/alexanderwillner/deepl-alfred-workflow2/issues
 		
 test: dependencies
 	@echo "Running first round of shell checks..."

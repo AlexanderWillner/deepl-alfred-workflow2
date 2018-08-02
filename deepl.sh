@@ -27,8 +27,12 @@ if [ -z "$1" ]; then
 fi
 
 if ! type jq >/dev/null 2>&1; then
-  echo "Run 'brew install jq' first." >&2
-  exit 2
+  if type brew >/dev/null 2>&1; then
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install jq >/dev/null || exit 2
+    else
+      echo "Install 'jq' first." >&2
+      exit 2
+    fi
 fi
 
 query="$(echo "$1" | iconv -f utf-8-mac -t utf-8)"

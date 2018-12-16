@@ -1,5 +1,7 @@
 # Alfred DeepL Translation Workflow
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2606c47ea1924445b4f81a962dc11700)](https://app.codacy.com/app/AlexanderWillner/deepl-alfred-workflow2?utm_source=github.com&utm_medium=referral&utm_content=AlexanderWillner/deepl-alfred-workflow2&utm_campaign=Badge_Grade_Dashboard)
+
 [DeepL.com](https://www.deepl.com/) is a great, new translation service. It provides better translations compared to other popular translation engines. 
 
 ## Caveats

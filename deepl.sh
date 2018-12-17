@@ -36,8 +36,8 @@ if ! type jq >/dev/null 2>&1; then
 fi
 
 query="$(echo "$1" | iconv -f utf-8-mac -t utf-8)"
-querylen=${#query}
-contentlen=$((332 + $querylen))
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"${query}"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1545000429097},"id":44050007}'
+contentlen=$(($(echo $data|wc -c)-1))
 
 curl -s 'https://www2.deepl.com/jsonrpc' \
 -XPOST \
@@ -45,13 +45,13 @@ curl -s 'https://www2.deepl.com/jsonrpc' \
 -H 'Accept: */*' \
 -H 'Host: www2.deepl.com' \
 -H 'Accept-Language: en-us' \
--H 'Accept-Encoding: br, gzip, deflate' \
+-H 'Accept-Encoding: br' \
+-H 'Content-Length: '"${contentlen}" \
 -H 'Origin: https://www.deepl.com' \
 -H 'Referer: https://www.deepl.com/translator' \
--H 'Content-Length: '"${contentlen}" \
 -H 'DNT: 1' \
 -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.2 Safari/605.1.15' \
 -H 'Connection: keep-alive' \
---data-binary '{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"${query}"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1545000429097},"id":44050007}' \
-  | gunzip |
-  jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+--data-binary "${data}" \
+| jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+

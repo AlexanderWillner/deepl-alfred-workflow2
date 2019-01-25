@@ -10,13 +10,59 @@ This workflow is a quick hack to enable support for Alfred (wrote it in a few mi
 
 ## Installing the Workflow
 
-Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by  double-clicking the workflow file. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
+Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
 Once imported, take a quick look at the workflow settings and setup what keyword you want to use.
 
 ## Usage
 
 To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated. Source and destination language will be inferred automatically.
+
+![Search](Screenshot-Search.png)
+
+After 1-2 seconds you get the translation.This is just an example.
+
+![Result](Screenshot-Result.png)
+
+Press enter to copy the result or ⌘-enter to show result as big screen overlay.
+
+## Command Line
+
+```
+$ ./deepl.sh -l DE "This is just an example."
+{
+  "items": [
+    {
+      "uid": null,
+      "arg": "Dies ist nur ein Beispiel.",
+      "valid": "yes",
+      "autocomplete": "autocomplete",
+      "title": "Dies ist nur ein Beispiel."
+    },
+    {
+      "uid": null,
+      "arg": "Das ist nur ein Beispiel.",
+      "valid": "yes",
+      "autocomplete": "autocomplete",
+      "title": "Das ist nur ein Beispiel."
+    },
+    {
+      "uid": null,
+      "arg": "Dies ist nur ein Beispiel dafür.",
+      "valid": "yes",
+      "autocomplete": "autocomplete",
+      "title": "Dies ist nur ein Beispiel dafür."
+    },
+    {
+      "uid": null,
+      "arg": "Dies ist nur ein exemplarisches Beispiel.",
+      "valid": "yes",
+      "autocomplete": "autocomplete",
+      "title": "Dies ist nur ein exemplarisches Beispiel."
+    }
+  ]
+}
+```
 
 ## Details
 

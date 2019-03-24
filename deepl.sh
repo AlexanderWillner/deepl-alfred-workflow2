@@ -36,6 +36,13 @@ if ! type jq >/dev/null 2>&1; then
 fi
 
 query="$(echo "$1" | iconv -f utf-8-mac -t utf-8)"
+
+if [[ $query != *. ]] ; then
+  echo '{"items": [{"uid": null,"arg": "End query with a dot","valid": "yes","autocomplete": "autocomplete","title": "End query with a dot"}]}'
+  exit 1
+fi
+
+query="$(echo $query|sed 's/.$//')"
 data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"${query}"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1545167772072},"id":87920002}}'
 contentlen=$(($(echo $data|wc -c)-1))
 
@@ -55,4 +62,3 @@ curl -s 'https://www2.deepl.com/jsonrpc' \
 -H 'Cookie: LMTBID=3667c2c5-8f5e-4f4c-85ba-6cd0e0956407|29c9ca7c29ac9af6a5b4dfcae1e970bf' \
 --data-binary "${data}" \
 | jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
-

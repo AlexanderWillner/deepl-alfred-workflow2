@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>ws.willner.alex.alfred.deepl</string>
-	<key>category</key>
-	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
@@ -52,9 +50,9 @@
 				<key>modifiers</key>
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
-				<string>Shows translation as screen overlay!</string>
+				<string></string>
 				<key>vitoclose</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -210,9 +208,9 @@
 		<key>84FE56AF-330C-4BB8-85E6-34859AAB73A7</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<integer>10</integer>
 			<key>ypos</key>
-			<integer>60</integer>
+			<integer>20</integer>
 		</dict>
 		<key>91D16594-908E-4665-A005-0B715D96E5C2</key>
 		<dict>

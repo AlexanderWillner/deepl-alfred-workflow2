@@ -6,7 +6,7 @@
 
 ## Caveats
 
-This workflow is a quick hack to enable support for Alfred (wrote it in a few minutes). It might break at any time. As such, a lot is hard coded. You might need to adapt the ```user_preferred_langs``` or ```source_lang_user_selected``` in the file ```deepl.sh```. Further, this workflow requires the ```jq commandline JSON processor``` installed at ```/usr/local/bin/jq```. Install it e.g. via [brew](https://brew.sh) using ```brew install jq```.
+This workflow requires the ```jq commandline JSON processor```. Install it e.g. via [brew](https://brew.sh) using ```brew install jq```.
 
 ## Installing the Workflow
 
@@ -16,11 +16,11 @@ Once imported, take a quick look at the workflow settings and setup what keyword
 
 ## Usage
 
-To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated. Source and destination language will be inferred automatically.
+To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated and end the input with ```.```. Source and destination language will be inferred automatically.
 
 ![Search](Screenshot-Search.png)
 
-After 1-2 seconds you get the translation.This is just an example.
+After 1-2 seconds you get the translation. This is just an example.
 
 ![Result](Screenshot-Result.png)
 

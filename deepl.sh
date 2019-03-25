@@ -6,6 +6,12 @@ PATH="$PATH:/usr/local/bin/"
 POSITIONAL=()
 ###############################################################################
 
+# helper functions ############################################################
+function printJson {
+  echo '{"items": [{"uid": null,"arg": "'"$1"'","valid": "yes","autocomplete": "autocomplete","title": "'"$1"'"}]}'
+}
+###############################################################################
+
 # parameters ##################################################################
 while [[ $# -gt 0 ]]; do
   key="$1"
@@ -45,7 +51,7 @@ fi
 query="$(echo "$1" | iconv -f utf-8-mac -t utf-8)"
 
 if [[ $query != *. ]]; then
-  echo '{"items": [{"uid": null,"arg": "End query with a dot","valid": "yes","autocomplete": "autocomplete","title": "End query with a dot"}]}'
+  printJson "End query with a dot"
   exit 1
 fi
 ###############################################################################
@@ -59,7 +65,7 @@ contentlen="$(($(echo $data | wc -c) - 1))"
 ###############################################################################
 
 # query #######################################################################
-curl -s 'https://www2.deepl.com/jsonrpc' \
+result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
   -XPOST \
   -H 'Content-Type: text/plain' \
   -H 'Accept: */*' \
@@ -73,6 +79,12 @@ curl -s 'https://www2.deepl.com/jsonrpc' \
   -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.2 Safari/605.1.15' \
   -H 'Connection: keep-alive' \
   -H 'Cookie: LMTBID=3667c2c5-8f5e-4f4c-85ba-6cd0e0956407|29c9ca7c29ac9af6a5b4dfcae1e970bc' \
-  --data-binary "$data" |
-  jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+  --data-binary "$data")
+
+if [[ "$result" == *'"error":{"code":'* ]] ; then
+  message=$(echo "$result"|jq -r '.["error"]|.message')
+  printJson "Error: $message"
+else
+  echo $result|jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+fi
 ###############################################################################

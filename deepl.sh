@@ -43,7 +43,7 @@ if [[ $query != *. ]] ; then
 fi
 
 query="$(echo $query|sed 's/.$//')"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"${query}"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1545167772072},"id":87920002}}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"${query}"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":'$(date +"%s")'},"id":'$(jot -r 1  10000000 99999999)'}}'
 contentlen=$(($(echo $data|wc -c)-1))
 
 curl -s 'https://www2.deepl.com/jsonrpc' \
@@ -52,13 +52,13 @@ curl -s 'https://www2.deepl.com/jsonrpc' \
 -H 'Accept: */*' \
 -H 'Host: www2.deepl.com' \
 -H 'Accept-Language: en-us' \
--H 'Accept-Encoding: br' \
+-H 'Accept-Encoding: br, deflate' \
 -H 'Origin: https://www.deepl.com' \
 -H 'Referer: https://www.deepl.com/translator' \
 -H 'Content-Length: '"${contentlen}" \
 -H 'DNT: 1' \
 -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.2 Safari/605.1.15' \
 -H 'Connection: keep-alive' \
--H 'Cookie: LMTBID=3667c2c5-8f5e-4f4c-85ba-6cd0e0956407|29c9ca7c29ac9af6a5b4dfcae1e970bf' \
+-H 'Cookie: LMTBID=3667c2c5-8f5e-4f4c-85ba-6cd0e0956407|29c9ca7c29ac9af6a5b4dfcae1e970bc' \
 --data-binary "${data}" \
 | jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'

@@ -4,6 +4,8 @@
 <dict>
 	<key>bundleid</key>
 	<string>ws.willner.alex.alfred.deepl</string>
+	<key>category</key>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
@@ -59,7 +61,7 @@
 	<key>createdby</key>
 	<string>Alexander Willner</string>
 	<key>description</key>
-	<string>Translation using deepl.com Hack – Version 0.2</string>
+	<string>Translation using deepl.com</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -195,7 +197,7 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>Using the keyword 'dl' it will translate a sentence using deepl.com</string>
 	<key>uidata</key>
 	<dict>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
@@ -234,6 +236,8 @@
 			<integer>60</integer>
 		</dict>
 	</dict>
+	<key>version</key>
+	<string>1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

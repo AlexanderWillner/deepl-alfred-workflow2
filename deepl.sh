@@ -58,15 +58,32 @@ fi
 
 # prepare query ###############################################################
 query="$(echo "$query" | sed 's/.$//')"
-id="$(jot -r 1 10000000 99999999)"
-timestamp="$(date +"%s")"
+id="$(($(jot -r 1 2000 9000) * 10000 + 1))"
+timestamp="$(date +'%s')"
+curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
+  -X POST \
+  -H 'Content-Type: text/plain' \
+  -H 'Accept: */*' \
+  -H 'Host: www.deepl.com' \
+  -H 'Accept-Language: en-us' \
+  -H 'Accept-Encoding: br, deflate' \
+  -H 'Origin: https://www.deepl.com' \
+  -H 'Referer: https://www.deepl.com/translator' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Length: 83' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
+  -H 'X-Requested-With: XMLHttpRequest' \
+  -c "$HOME/.deeplcookie" \
+  --data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":'"$id"'}' \
+  > /dev/null
+id="$(($id + 1))"
 data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":'"$timestamp"'},"id":'"$id"'}}'
 contentlen="$(($(echo $data | wc -c) - 1))"
 ###############################################################################
 
 # query #######################################################################
 result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
-  -XPOST \
+  -X POST \
   -H 'Content-Type: text/plain' \
   -H 'Accept: */*' \
   -H 'Host: www2.deepl.com' \
@@ -75,7 +92,7 @@ result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
   -H 'Origin: https://www.deepl.com' \
   -H 'Referer: https://www.deepl.com/translator' \
   -H 'Content-Length: '"$contentlen" \
-  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.2 Safari/605.1.15' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
   -H 'Connection: keep-alive' \
   -c "$HOME/.deeplcookie" \
   --data-binary "$data")

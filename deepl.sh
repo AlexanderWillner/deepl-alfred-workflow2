@@ -58,7 +58,15 @@ fi
 
 # prepare query ###############################################################
 query="$(echo "$query" | sed 's/.$//')"
-id="$(($(jot -r 1 2000 9000) * 10000 + 1))"
+find ~ -maxdepth 1 -name ".deeplcounter" -mtime +30s -type f -delete
+if [[ -f "$HOME/.deeplcounter" ]]; then
+  id="$(cat $HOME/.deeplcounter)"
+else
+  id="$(($(jot -r 1 2000 9000) * 10000 + 1))"
+fi
+id="$(($id + 1))"
+echo "$id" >| "$HOME/.deeplcounter"
+
 timestamp="$(date +'%s')"
 curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
   -X POST \
@@ -76,7 +84,9 @@ curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&
   -c "$HOME/.deeplcookie" \
   --data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":'"$id"'}' \
   > /dev/null
+
 id="$(($id + 1))"
+echo "$id" >| "$HOME/.deeplcounter"
 data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":'"$timestamp"'},"id":'"$id"'}}'
 contentlen="$(($(echo $data | wc -c) - 1))"
 ###############################################################################

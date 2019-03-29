@@ -4,6 +4,11 @@
 set -o errexit -o pipefail -o noclobber -o nounset
 PATH="$PATH:/usr/local/bin/"
 POSITIONAL=()
+HEADER=(-H 'Accept-Language: en-us' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
+  -H 'Accept-Encoding: br, deflate' \
+  -H 'Connection: keep-alive' \
+  -c '$HOME/.deeplcookie')
 ###############################################################################
 
 # helper functions ############################################################
@@ -59,52 +64,49 @@ fi
 # prepare query ###############################################################
 query="$(echo "$query" | sed 's/.$//')"
 find ~ -maxdepth 1 -name ".deeplcounter" -mtime +30s -type f -delete
+find ~ -maxdepth 1 -name ".deeplcookie" -mtime +30s -type f -delete
 if [[ -f "$HOME/.deeplcounter" ]]; then
   id="$(cat $HOME/.deeplcounter)"
 else
   id="$(($(jot -r 1 2000 9000) * 10000 + 1))"
-fi
-id="$(($id + 1))"
-echo "$id" >| "$HOME/.deeplcounter"
-
-timestamp="$(date +'%s')"
-curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
+  curl -s 'https://www.deepl.com/translator' \
+  -X GET "${HEADER[@]}" \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+  -H 'Accept-Language: en-us' \
+  -H 'Connection: keep-alive' \
+  -H 'Accept-Encoding: br, deflate' \
+  -H 'Host: www.deepl.com' \
+  -c "$HOME/.deeplcookie" \
+  >| /dev/null
+  sleep .5
+  curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
   -X POST \
   -H 'Content-Type: text/plain' \
   -H 'Accept: */*' \
   -H 'Host: www.deepl.com' \
-  -H 'Accept-Language: en-us' \
-  -H 'Accept-Encoding: br, deflate' \
   -H 'Origin: https://www.deepl.com' \
   -H 'Referer: https://www.deepl.com/translator' \
-  -H 'Connection: keep-alive' \
   -H 'Content-Length: 83' \
-  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
   -H 'X-Requested-With: XMLHttpRequest' \
-  -c "$HOME/.deeplcookie" \
   --data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":'"$id"'}' \
-  > /dev/null
-
-id="$(($id + 1))"
-echo "$id" >| "$HOME/.deeplcounter"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":'"$timestamp"'},"id":'"$id"'}}'
+  >| /dev/null
+fi
+id="$(($id + 1))"; echo "$id" >| "$HOME/.deeplcounter"
+timestamp="$(python -c 'from time import time; print int(round(time() * 1000))')"
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["FR","DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":'"$timestamp"'},"id":'"$id"'}}'
 contentlen="$(($(echo $data | wc -c) - 1))"
+sleep .5
 ###############################################################################
 
 # query #######################################################################
 result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
-  -X POST \
+  -X POST "${HEADER[@]}" \
   -H 'Content-Type: text/plain' \
   -H 'Accept: */*' \
   -H 'Host: www2.deepl.com' \
-  -H 'Accept-Language: en-us' \
-  -H 'Accept-Encoding: br, deflate' \
   -H 'Origin: https://www.deepl.com' \
   -H 'Referer: https://www.deepl.com/translator' \
   -H 'Content-Length: '"$contentlen" \
-  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
-  -H 'Connection: keep-alive' \
-  -c "$HOME/.deeplcookie" \
   --data-binary "$data")
 
 if [[ "$result" == *'"error":{"code":'* ]] ; then
@@ -113,4 +115,15 @@ if [[ "$result" == *'"error":{"code":'* ]] ; then
 else
   echo $result|jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
 fi
+###############################################################################
+
+# post query ##################################################################
+curl -s 'https://dict.deepl.com/german-english/search?ajax=1&query=QUERY&source=german&onlyDictEntries=1&translator=dnsof7h3k2lgh3gda&delay=300&jsStatus=0&kind=full&eventkind=change&forleftside=true' \
+  -X GET "${HEADER[@]}" \
+  -H 'Accept: text/html, */*; q=0.01' \
+  -H 'Origin: https://www.deepl.com' \
+  -H 'Accept-Encoding: br, deflate' \
+  -H 'Host: dict.deepl.com' \
+  -H 'Referer: https://www.deepl.com/translator' \
+  >| /dev/null
 ###############################################################################

@@ -76,7 +76,6 @@ else
   -H 'Connection: keep-alive' \
   -H 'Accept-Encoding: br, deflate' \
   -H 'Host: www.deepl.com' \
-  -c "$HOME/.deeplcookie" \
   >| /dev/null
   sleep .5
   curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \

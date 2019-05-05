@@ -3,11 +3,6 @@
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
 PATH="$PATH:/usr/local/bin/"
-POSITIONAL=()
-HEADER=(-H 'Accept-Language: en-us' \
-  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
-  -H 'Accept-Encoding: br, deflate' \
-  -H 'Connection: keep-alive' )
 ###############################################################################
 
 # helper functions ############################################################
@@ -17,6 +12,7 @@ function printJson {
 ###############################################################################
 
 # parameters ##################################################################
+POSITIONAL=()
 while [[ $# -gt 0 ]]; do
   key="$1"
   case "$key" in
@@ -62,28 +58,27 @@ fi
 
 # prepare query ###############################################################
 query="$(echo "$query" | sed 's/.$//')"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":59120002}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":69120002}'
 contentlen="$(($(echo $data | wc -c) - 1))"
+HEADER=(\
+  -H 'Accept-Language: en-us' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15' \
+  -H 'Connection: keep-alive' )
 ###############################################################################
 
-# pre queries #################################################################
-curl -s 'https://www.deepl.com/translator' \
--XGET \
-"${HEADER[@]}" \
--H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
--H 'Host: www.deepl.com' >| /dev/null
-
+# pre query ###################################################################
 curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
 -XPOST \
 "${HEADER[@]}" \
 -H 'Content-Type: text/plain' \
 -H 'Accept: */*' \
+-H 'Accept-Encoding: br, gzip, deflate' \
 -H 'Host: www.deepl.com' \
 -H 'Origin: https://www.deepl.com' \
 -H 'Referer: https://www.deepl.com/translator' \
 -H 'Content-Length: 83' \
 -H 'X-Requested-With: XMLHttpRequest' \
---data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":59120001}' >| /dev/null
+--data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":69120001}' >| /dev/null
 ###############################################################################
 
 # query #######################################################################
@@ -91,6 +86,7 @@ result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
 -XPOST \
 "${HEADER[@]}" \
 -H 'Accept: */*' \
+-H 'Accept-Encoding: br, deflate' \
 -H 'Content-Type: text/plain' \
 -H 'Origin: https://www.deepl.com' \
 -H 'Content-Length: '$contentlen \
@@ -104,15 +100,4 @@ if [[ "$result" == *'"error":{"code":'* ]] ; then
 else
   echo $result|jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
 fi
-###############################################################################
-
-# post query ##################################################################
-curl -s 'https://dict.deepl.com/german-english/search?ajax=1&query=Mogelpackung&source=german&onlyDictEntries=1&translator=dnsof7h3k2lgh3gda&delay=300&jsStatus=0&kind=full&eventkind=change&forleftside=true' \
--XGET \
--H 'Accept: text/html, */*; q=0.01' \
--H 'Origin: https://www.deepl.com' \
--H 'Accept-Encoding: br, deflate' \
--H 'Host: dict.deepl.com' \
--H 'Accept-Language: en-us' \
--H 'Referer: https://www.deepl.com/translator' >| /dev/null
 ###############################################################################

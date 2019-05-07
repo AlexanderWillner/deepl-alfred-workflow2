@@ -7,6 +7,7 @@
 ## Caveats
 
 This workflow requires the ```jq commandline JSON processor```. Install it e.g. via [brew](https://brew.sh) using ```brew install jq```.
+Further please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only.
 
 ## Installing the Workflow
 

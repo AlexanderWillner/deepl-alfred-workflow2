@@ -6,12 +6,11 @@
 
 ## Caveats
 
-This workflow requires the ```jq commandline JSON processor```. Install it e.g. via [brew](https://brew.sh) using ```brew install jq```.
-Further please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only.
+Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. Consider to get a [```pro account```](https://www.deepl.com/en/pro.html).
 
 ## Installing the Workflow
 
-Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file. You can add the workflow to a category, then click "Import" to finish importing. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
+Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file. You can add the workflow to a category, then click "Import" to finish. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
 Once imported, take a quick look at the workflow settings and setup what keyword you want to use.
 

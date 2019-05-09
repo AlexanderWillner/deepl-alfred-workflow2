@@ -3,6 +3,10 @@
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
 PATH="$PATH:/usr/local/bin/"
+PARSER="jq"
+if ! type "${PARSER}" >/dev/null 2>&1; then
+  PARSER="./jq-dist"
+fi
 ###############################################################################
 
 # helper functions ############################################################
@@ -35,15 +39,6 @@ if [ -z "$1" ]; then
   echo "SYNTAX : $0 [-l language] <query>" >&2
   echo "Example: $0 -l DE \"This is just an example.\""
   exit 1
-fi
-
-if ! type jq >/dev/null 2>&1; then
-  if type brew >/dev/null 2>&1; then
-    HOMEBREW_NO_AUTO_UPDATE=1 brew install jq >/dev/null || exit 2
-  else
-    echo "Install 'jq' first." >&2
-    exit 2
-  fi
 fi
 ###############################################################################
 
@@ -95,9 +90,9 @@ result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
 --data-binary "$data")
 
 if [[ "$result" == *'"error":{"code":'* ]] ; then
-  message=$(echo "$result"|jq -r '.["error"]|.message')
+  message=$(echo "$result"|"${PARSER}" -r '.["error"]|.message')
   printJson "Error: $message"
 else
-  echo $result|jq -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+  echo $result|"${PARSER}" -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
 fi
 ###############################################################################

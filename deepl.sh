@@ -53,7 +53,9 @@ fi
 
 # prepare query ###############################################################
 query="$(echo "$query" | sed 's/.$//')"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[]}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":69120002}'
+query="$(echo "$query" | sed 's/\"/\\\"/g')"
+query="$(echo "$query" | sed "s/'/\\\'/g")"
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":69120002}'
 contentlen="$(($(echo $data | wc -c) - 1))"
 HEADER=(\
   -H 'Accept-Language: en-us' \

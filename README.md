@@ -7,6 +7,7 @@
 ## Caveats
 
 Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. Consider to get a [```pro account```](https://www.deepl.com/en/pro.html).
+Further, some longer sentences result in the message ```Error: Too many requests.```.
 
 ## Installing the Workflow
 

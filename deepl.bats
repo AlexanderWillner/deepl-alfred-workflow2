@@ -56,3 +56,18 @@ teardown() {
   [[ "$status" -eq 0 ]]
   [[ "$output" == *'\"Apple\"'* ]]
 }
+
+#todo: fixme
+#@test "Long sentences" {
+#  run ./deepl.sh -l DE "He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it."
+#  [[ "$status" -eq 0 ]]
+#  [[ "$output" == *'\"Leben\"'* ]]
+#}
+
+#todo: fixme
+#@test "Multi sentences" {
+#  run ./deepl.sh -l DE "This planet has - or rather had - a problem, which was this: most of the people living on it were unhappy for pretty much of the time. Many solutions were suggested for this problem, but most of these were largely concerned with the movement of small green pieces of paper, which was odd because on the whole it wasn't the small green pieces of paper that were unhappy."
+#  [[ "$status" -eq 0 ]]
+#  [[ "$output" == *'\"unglücklich\"'* ]]
+#}
+

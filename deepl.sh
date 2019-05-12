@@ -73,8 +73,6 @@ HEADER=(
 # pre query ###################################################################
 curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
   "${HEADER[@]}" \
-  -H 'Content-Length: 83' \
-  -H 'X-Requested-With: XMLHttpRequest' \
   --data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":69120001}' >|/dev/null
 ###############################################################################
 

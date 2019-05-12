@@ -1,4 +1,3 @@
-SCRIPT=./runMojaveVirtualbox.sh
 SHELL=bash
 
 help:
@@ -12,7 +11,7 @@ help:
 
 workflow:
 	@rm -f Deepl-Translate.alfredworkflow
-	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh
+	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
 	
 feedback:
 	@open https://github.com/alexanderwillner/deepl-alfred-workflow2/issues
@@ -37,4 +36,4 @@ style:
 	@type shfmt >/dev/null 2>&1 || (echo "Run 'brew install shfmt' first." >&2 ; exit 1)
 	@shfmt -i 2 -w -s *.sh
 
-.PHONY: workflow feedback test harden style check dependencies
+.PHONY: workflow feedback bats test harden style

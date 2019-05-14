@@ -4,20 +4,9 @@
 
 [DeepL.com](https://www.deepl.com/) is a great, new translation service. It provides better translations compared to other popular translation engines. 
 
-## Caveats
-
-Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. Consider to get a [```pro account```](https://www.deepl.com/en/pro.html).
-Further, some longer sentences result in the message ```Error: Too many requests.```.
-
-## Installing the Workflow
-
-Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file. You can add the workflow to a category, then click "Import" to finish. You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
-
-Once imported, take a quick look at the workflow settings and setup what keyword you want to use.
-
 ## Usage
 
-To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated and end the input with ```.```. Source and destination language will be inferred automatically.
+To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated and end the input with ```.```. The source language will be inferred automatically and the target language can be configured.
 
 ![Search](Screenshot-Search.png)
 
@@ -27,9 +16,24 @@ After 1-2 seconds you get the translation. This is just an example.
 
 Press enter to copy the result or ⌘-enter to show result as big screen overlay.
 
+## Caveats
+
+Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. Consider to get a [```pro account```](https://www.deepl.com/en/pro.html).
+Further, some longer sentences result in the message ```Error: Too many requests.```.
+
+## Installing the Workflow
+
+Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file and clicking on "Import". You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
+
+Once imported, you may want to take a quick look at the workflow settings and setup what keyword you want to use. Further, you can change the target language in the settings as shown in this screenshot:
+
+![Config](Screenshot-Config.png)
+
+
 ## Command Line
 
 ```
+$ # DEEPL_TARGET="FR"
 $ ./deepl.sh -l DE "This is just an example."
 {
   "items": [

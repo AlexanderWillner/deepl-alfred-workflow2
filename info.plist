@@ -8,6 +8,29 @@
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
+		<key>5233F7C8-9221-45A4-BDE0-DE53175096E1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A222FB0A-D703-4C45-9CB0-4EDEA3399BEF</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
 		<array>
 			<dict>
@@ -94,6 +117,92 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>dlfr</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Translating to language "FR" using DeepL ...</string>
+				<key>script</key>
+				<string>./deepl.sh -l "FR" "{query}"
+</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string>deepl.sh</string>
+				<key>subtext</key>
+				<string>Translate to language "FR" using DeepL</string>
+				<key>title</key>
+				<string>DeepL Dictionary</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>5233F7C8-9221-45A4-BDE0-DE53175096E1</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string></string>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Copied to clipboard:</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>D7D47F17-02DB-4A30-8F14-C03CBD051929</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -125,23 +234,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string></string>
-				<key>transient</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -151,7 +243,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>0</integer>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>dl</string>
 				<key>queuedelaycustom</key>
@@ -165,9 +257,10 @@
 				<key>runningsubtext</key>
 				<string>Translating to language "{var:DEEPL_TARGET}" using DeepL ...</string>
 				<key>script</key>
-				<string></string>
+				<string>./deepl.sh -l "{var:DEEPL_TARGET}" "{query}"
+</string>
 				<key>scriptargtype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>scriptfile</key>
 				<string>deepl.sh</string>
 				<key>subtext</key>
@@ -175,7 +268,7 @@
 				<key>title</key>
 				<string>DeepL Dictionary</string>
 				<key>type</key>
-				<integer>8</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -185,27 +278,6 @@
 			<string>91D16594-908E-4665-A005-0B715D96E5C2</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<true/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Copied to clipboard:</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>D7D47F17-02DB-4A30-8F14-C03CBD051929</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -312,16 +384,25 @@ fi</string>
 			<key>xpos</key>
 			<integer>400</integer>
 			<key>ypos</key>
-			<integer>360</integer>
+			<integer>460</integer>
+		</dict>
+		<key>5233F7C8-9221-45A4-BDE0-DE53175096E1</key>
+		<dict>
+			<key>note</key>
+			<string>Use this keyword to start the translation to an alternative hard coded language.</string>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>30</integer>
 		</dict>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
 		<dict>
 			<key>note</key>
 			<string>Copy translated text to the clipboard.</string>
 			<key>xpos</key>
-			<integer>400</integer>
+			<integer>490</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>270</integer>
 		</dict>
 		<key>84FE56AF-330C-4BB8-85E6-34859AAB73A7</key>
 		<dict>
@@ -330,34 +411,34 @@ fi</string>
 			<key>xpos</key>
 			<integer>40</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>300</integer>
 		</dict>
 		<key>91D16594-908E-4665-A005-0B715D96E5C2</key>
 		<dict>
 			<key>note</key>
-			<string>Use this keyword to start the translation.</string>
+			<string>Use this keyword to start the translation to the configured language.</string>
 			<key>xpos</key>
 			<integer>220</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>300</integer>
 		</dict>
 		<key>A222FB0A-D703-4C45-9CB0-4EDEA3399BEF</key>
 		<dict>
 			<key>note</key>
 			<string>Show translation as large text.</string>
 			<key>xpos</key>
-			<integer>400</integer>
+			<integer>480</integer>
 			<key>ypos</key>
-			<integer>40</integer>
+			<integer>30</integer>
 		</dict>
 		<key>D7D47F17-02DB-4A30-8F14-C03CBD051929</key>
 		<dict>
 			<key>note</key>
 			<string>Show a notifciation when text was copied to the clipboard.</string>
 			<key>xpos</key>
-			<integer>600</integer>
+			<integer>680</integer>
 			<key>ypos</key>
-			<integer>200</integer>
+			<integer>270</integer>
 		</dict>
 	</dict>
 	<key>variables</key>
@@ -366,7 +447,7 @@ fi</string>
 		<string>EN</string>
 	</dict>
 	<key>version</key>
-	<string>1.14</string>
+	<string>1.15</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

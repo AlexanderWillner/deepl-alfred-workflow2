@@ -14,7 +14,7 @@ After 1-2 seconds you get the translation. This is just an example.
 
 ![Result](Screenshot-Result.png)
 
-Press enter to copy the result or ⌘-enter to show result as big screen overlay.
+Press ```↩``` to copy the result or ```⌘ + ↩``` to show result as big screen overlay. You can also translate any selected text within macOS by pressing ```⌃ + ⌥ + ⌘ + d```.
 
 ## Caveats
 

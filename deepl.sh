@@ -3,6 +3,7 @@
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
 PATH="$PATH:/usr/local/bin/"
+LANGUAGE=${DEEPL_TARGET:-EN}
 PARSER="jq"
 if ! type "$PARSER" >/dev/null 2>&1; then
   PARSER="./jq-dist"

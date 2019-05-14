@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>ws.willner.alex.alfred.deepl</string>
-	<key>category</key>
-	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</key>
@@ -348,8 +346,13 @@ fi</string>
 			<integer>60</integer>
 		</dict>
 	</dict>
+	<key>variables</key>
+	<dict>
+		<key>DEEPL_TARGET</key>
+		<string>EN</string>
+	</dict>
 	<key>version</key>
-	<string>1.12</string>
+	<string>1.13</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

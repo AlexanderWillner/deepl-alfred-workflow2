@@ -21,6 +21,12 @@ teardown() {
   [[ "$output" == *"bird"* ]]
 }
 
+@test "Trailing spaces" {
+  run ./deepl.sh " Vogel. "
+  [[ "$status" -eq 0 ]]
+  [[ "$output" == *"bird"* ]]
+}
+
 @test "Sentence" {
   run ./deepl.sh -l DE "Translate from any language."
   [[ "$status" -eq 0 ]]

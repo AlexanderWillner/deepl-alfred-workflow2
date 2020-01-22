@@ -288,7 +288,7 @@
 				<key>script</key>
 				<string># THESE VARIABLES MUST BE SET. SEE THE ONEUPDATER README FOR AN EXPLANATION OF EACH.
 readonly remote_info_plist='https://raw.githubusercontent.com/AlexanderWillner/deepl-alfred-workflow2/master/info.plist'
-readonly workflow_url='https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true'
+readonly workflow_url='https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases/latest/download/Deepl-Translate.alfredworkflow'
 readonly download_type='direct'
 readonly frequency_check='4'
 
@@ -446,7 +446,7 @@ fi</string>
 		<string>EN</string>
 	</dict>
 	<key>version</key>
-	<string>1.17</string>
+	<string>1.18</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

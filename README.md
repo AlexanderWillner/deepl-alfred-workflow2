@@ -1,6 +1,6 @@
 # Alfred DeepL Translation Workflow
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2606c47ea1924445b4f81a962dc11700)](https://app.codacy.com/app/AlexanderWillner/deepl-alfred-workflow2?utm_source=github.com&utm_medium=referral&utm_content=AlexanderWillner/deepl-alfred-workflow2&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2606c47ea1924445b4f81a962dc11700)](https://app.codacy.com/app/AlexanderWillner/deepl-alfred-workflow2?utm_source=github.com&utm_medium=referral&utm_content=AlexanderWillner/deepl-alfred-workflow2&utm_campaign=Badge_Grade_Dashboard) [![download](https://img.shields.io/github/downloads/AlexanderWillner/deepl-alfred-workflow2/total)](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
 
 [DeepL.com](https://www.deepl.com/) is a great, new translation service. It provides better translations compared to other popular translation engines. 
 
@@ -23,7 +23,7 @@ Further, some longer sentences result in the message ```Error: Too many requests
 
 ## Installing the Workflow
 
-Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/blob/master/Deepl-Translate.alfredworkflow?raw=true) and install it by double-clicking the workflow file and clicking on "Import". You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
+Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases/latest/download/Deepl-Translate.alfredworkflow) and install it by double-clicking the workflow file and clicking on "Import". You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
 Once imported, you may want to take a quick look at the workflow settings and setup what keyword you want to use. Further, you can change the target language in the settings as shown in this screenshot:
 

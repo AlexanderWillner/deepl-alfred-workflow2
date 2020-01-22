@@ -257,8 +257,7 @@
 				<key>runningsubtext</key>
 				<string>Translating to language "{var:DEEPL_TARGET}" using DeepL ...</string>
 				<key>script</key>
-				<string>./deepl.sh -l "{var:DEEPL_TARGET}" "{query}"
-</string>
+				<string>./deepl.sh -l "$DEEPL_TARGET" "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -447,7 +446,7 @@ fi</string>
 		<string>EN</string>
 	</dict>
 	<key>version</key>
-	<string>1.16</string>
+	<string>1.17</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

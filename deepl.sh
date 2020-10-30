@@ -60,22 +60,16 @@ query="$(echo "$query" | sed 's/.$//')"
 query="$(echo "$query" | sed 's/\"/\\\"/g')"
 # shellcheck disable=SC2001
 query="$(echo "$query" | sed "s/'/\\\'/g")"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":79120002,"commonJobParams":{"formality":null}}'
 HEADER=(
   --compressed
   -H 'Origin: https://www.deepl.com'
   -H 'Referer: https://www.deepl.com/translator'
   -H 'Accept: */*'
-  -H 'Content-Type: text/plain'
+  -H 'Content-Type: application/json'
   -H 'Accept-Language: en-us'
   -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15'
 )
-###############################################################################
-
-# pre query ###################################################################
-curl -s 'https://www.deepl.com/PHP/backend/clientState.php?request_type=jsonrpc&il=EN' \
-  "${HEADER[@]}" \
-  --data-binary '{"jsonrpc":"2.0","method":"getClientState","params":{"v":"20180814"},"id":79120001}' >|/dev/null
 ###############################################################################
 
 # query #######################################################################

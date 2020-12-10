@@ -2,6 +2,7 @@
 
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
+VERSION="1.20"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LANGUAGE=${DEEPL_TARGET:-EN}
@@ -38,8 +39,11 @@ set -- "${POSITIONAL[@]:-}" # restore positional parameters
 
 # help ########################################################################
 if [ -z "$1" ]; then
+  echo "Home made DeepL CLI (${VERSION}; https://github.com/AlexanderWillner/deepl-alfred-workflow2)"
+  echo ""
   echo "SYNTAX : $0 [-l language] <query>" >&2
   echo "Example: $0 -l DE \"This is just an example.\""
+  echo ""
   exit 1
 fi
 ###############################################################################
@@ -60,9 +64,10 @@ query="$(echo "$query" | sed 's/.$//')"
 query="$(echo "$query" | sed 's/\"/\\\"/g')"
 # shellcheck disable=SC2001
 query="$(echo "$query" | sed "s/'/\\\'/g")"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["EN","DE"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":79120002,"commonJobParams":{"formality":null}}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
 HEADER=(
   --compressed
+  -H 'authority: www2.deepl.com'
   -H 'Origin: https://www.deepl.com'
   -H 'Referer: https://www.deepl.com/translator'
   -H 'Accept: */*'

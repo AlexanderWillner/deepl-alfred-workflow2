@@ -49,7 +49,7 @@ fi
 ###############################################################################
 
 # process query ###############################################################
-query="$(echo "$1" | iconv -f utf-8-mac -t utf-8 | tr -d '[:space:]')"
+query="$(echo "$1" | iconv -f utf-8-mac -t utf-8 | xargs)"
 
 if [[ $query != *. ]]; then
   printJson "End query with a dot"

@@ -23,7 +23,11 @@ Further, some longer sentences result in the message ```Error: Too many requests
 
 ## Installing the Workflow
 
-Simply download the [```DeepL Workflow```](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases/latest/download/Deepl-Translate.alfredworkflow) and install it by double-clicking the workflow file and clicking on "Import". You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
+1. Simply download the [last release](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
+2. Unzip the file on your computer
+3. Install `Deepl-Translate.alfredworkflow` by double-clicking the workflow file and clicking on "Import".
+
+You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
 Once imported, you may want to take a quick look at the workflow settings and setup what keyword you want to use. Further, you can change the target language in the settings as shown in this screenshot:
 

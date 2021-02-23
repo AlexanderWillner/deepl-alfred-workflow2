@@ -2,7 +2,7 @@
 
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
-VERSION="1.40"
+VERSION="1.41"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LANGUAGE=${DEEPL_TARGET:-EN}

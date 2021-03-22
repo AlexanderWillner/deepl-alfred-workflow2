@@ -2,10 +2,12 @@
 
 # setup #######################################################################
 #set -o errexit -o pipefail -o noclobber -o nounset
-VERSION="1.41"
+LANGUAGE="${DEEPL_TARGET:-EN}"
+LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
+LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
+VERSION="1.5"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-LANGUAGE=${DEEPL_TARGET:-EN}
 PARSER="jq"
 if ! type "$PARSER" >/dev/null 2>&1; then
   PARSER="${DIR}/jq-dist"
@@ -65,7 +67,7 @@ fi
 # prepare query ###############################################################
 # shellcheck disable=SC2001
 query="$(echo "$query" | sed 's/.$//')"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":["DE","EN"],"source_lang_user_selected":"auto","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":'"${LANGUAGE_PREFERRED}"',"source_lang_user_selected":"'"${LANGUAGE_SOURCE}"'","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
 HEADER=(
   --compressed
   -H 'authority: www2.deepl.com'

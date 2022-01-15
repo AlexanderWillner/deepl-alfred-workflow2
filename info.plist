@@ -460,7 +460,7 @@ fi</string>
 		<string>EN</string>
 	</dict>
 	<key>version</key>
-	<string>1.5</string>
+	<string>1.6</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

@@ -11,6 +11,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 PARSER="jq"
 if ! type "$PARSER" >/dev/null 2>&1; then
   PARSER="${DIR}/jq-dist"
+  xattr -dr com.apple.quarantine "$PARSER"
+  chmod +x "$PARSER"
 fi
 ###############################################################################
 

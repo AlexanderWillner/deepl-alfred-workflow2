@@ -459,13 +459,15 @@ To avoid the error message 'too many requests', please configure your free (or p
 		<string></string>
 		<key>DEEPL_PREFERRED</key>
 		<string>["DE", "EN"]</string>
+		<key>DEEPL_PRO</key>
+		<string>0</string>
 		<key>DEEPL_SOURCE</key>
 		<string>auto</string>
 		<key>DEEPL_TARGET</key>
 		<string>DE</string>
 	</dict>
 	<key>version</key>
-	<string>1.6</string>
+	<string>1.7</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

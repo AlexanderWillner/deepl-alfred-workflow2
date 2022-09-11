@@ -6,6 +6,7 @@ LANGUAGE="${DEEPL_TARGET:-EN}"
 LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
 LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
+PRO="${DEEPL_PRO:-}"
 VERSION="1.5"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -85,6 +86,11 @@ HEADER=(
 
 # query #######################################################################
 if [ -n "$KEY" ]; then
+  if [ "$PRO" = "1" ]; then
+    url="https://api.deepl.com/v2/translate"
+  else
+    url="https://api-free.deepl.com/v2/translate"
+  fi
   result=$(curl -s -X POST 'https://api-free.deepl.com/v2/translate' -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
   echo "$result" | "$PARSER" -r '{items: [.translations[] | {uid: null, arg:.text, valid: "yes", autocomplete: "autocomplete",title: .text}]}'
 else

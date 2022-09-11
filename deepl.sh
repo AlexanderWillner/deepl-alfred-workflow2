@@ -5,6 +5,7 @@
 LANGUAGE="${DEEPL_TARGET:-EN}"
 LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
 LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
+KEY="${DEEPL_KEY:-}"
 VERSION="1.5"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -83,14 +84,18 @@ HEADER=(
 ###############################################################################
 
 # query #######################################################################
-result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
-  "${HEADER[@]}" \
-  --data-binary $"$data")
-
-if [[ $result == *'"error":{"code":'* ]]; then
-  message=$(echo "$result" | "$PARSER" -r '.["error"]|.message')
-  printJson "Error: $message"
+if [ -n "$KEY" ]; then
+  result=$(curl -s -X POST 'https://api-free.deepl.com/v2/translate' -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
+  echo "$result" | "$PARSER" -r '{items: [.translations[] | {uid: null, arg:.text, valid: "yes", autocomplete: "autocomplete",title: .text}]}'
 else
-  echo "$result" | "$PARSER" -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+  result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
+    "${HEADER[@]}" \
+    --data-binary $"$data")
+  if [[ $result == *'"error":{"code":'* ]]; then
+    message=$(echo "$result" | "$PARSER" -r '.["error"]|.message')
+    printJson "Error: $message"
+  else
+    echo "$result" | "$PARSER" -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+  fi
 fi
 ###############################################################################

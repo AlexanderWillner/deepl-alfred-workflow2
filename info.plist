@@ -222,9 +222,11 @@
 				<key>focusedappvariablename</key>
 				<string></string>
 				<key>hotkey</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>hotmod</key>
-				<integer>0</integer>
+				<integer>1835008</integer>
+				<key>hotstring</key>
+				<string>D</string>
 				<key>leftcursor</key>
 				<false/>
 				<key>modsmode</key>
@@ -267,7 +269,7 @@
 				<key>runningsubtext</key>
 				<string>Translating to language "{var:DEEPL_TARGET}" using DeepL ...</string>
 				<key>script</key>
-				<string>./deepl.sh -l "$DEEPL_TARGET" "{query}"</string>
+				<string>DEEPL_KEY="$DEEPL_KEY" ./deepl.sh -l "$DEEPL_TARGET" "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -381,7 +383,8 @@ fi</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Using the keyword 'dl' will translate a sentence using deepl.com. You can configure the target language in the workflow configuration.</string>
+	<string>Using the keyword 'dl' will translate a sentence using deepl.com. You can configure the target language in the workflow configuration.
+To avoid the error message 'too many requests', please configure your free (or paid) DeepL API key.</string>
 	<key>uidata</key>
 	<dict>
 		<key>51AFB0E3-C777-4C5E-A677-3AF381488BCC</key>
@@ -452,12 +455,14 @@ fi</string>
 	</dict>
 	<key>variables</key>
 	<dict>
+		<key>DEEPL_KEY</key>
+		<string></string>
 		<key>DEEPL_PREFERRED</key>
 		<string>["DE", "EN"]</string>
 		<key>DEEPL_SOURCE</key>
 		<string>auto</string>
 		<key>DEEPL_TARGET</key>
-		<string>EN</string>
+		<string>DE</string>
 	</dict>
 	<key>version</key>
 	<string>1.6</string>

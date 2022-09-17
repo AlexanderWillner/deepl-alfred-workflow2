@@ -18,6 +18,7 @@ You can also translate any selected text within macOS by pressing ```⌃ + ⌥ +
 Other languages are supported as well:
 
 ![Chinese](Screenshot-Chinese.png)
+
 ## Caveats
 
 Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. This fact and generally some longer sentences might result in the message ```Error: Too many requests.``` (see #5).
@@ -37,7 +38,7 @@ Once imported, you may want to take a quick look at the workflow settings and se
 
 ## Command Line
 
-```
+```shell
 $ # DEEPL_TARGET="FR"
 $ ./deepl.sh -l DE "This is just an example."
 {
@@ -90,5 +91,3 @@ To create a modified version of the workflow, edit the files and run ```make wor
 DeepL is a product from DeepL GmbH. More info: [deepl.com/publisher.html](https://www.deepl.com/publisher.html)
 
 This package has been heavily inspired by [m9dfukc's DeepL Alfred Workflow](https://github.com/m9dfukc/deepl-alfred-workflow).
-
-

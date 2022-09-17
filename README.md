@@ -73,7 +73,14 @@ $ ./deepl.sh -l DE "This is just an example."
 }
 ```
 
-## Details
+## Important configuration variables
+
+* `DEEPL_KEY`: the DeepL API key
+* `DEEPL_PRO`: in case you have a professional DeepL account
+* `DEEPL_POSTFIX`: the character to the input should end with to mitigate #5
+* `DEEPL_TARGET`: the target language of the default `dl` keyword
+
+## Builing the workflow
 
 To create a modified version of the workflow, edit the files and run ```make workflow``` to create an updated workflow.
 

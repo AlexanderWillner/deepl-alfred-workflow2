@@ -80,6 +80,32 @@
 				<false/>
 			</dict>
 		</array>
+		<key>AD7C89C1-0978-4469-B62F-245E595DE9BD</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>91D16594-908E-4665-A005-0B715D96E5C2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CAA19D9E-04B6-4AD4-A8DC-0B683215DD14</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5233F7C8-9221-45A4-BDE0-DE53175096E1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Alexander Willner</string>
@@ -136,7 +162,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>dlfr</string>
+				<string>dl-to-en</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -146,16 +172,16 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>Translating to language "FR" using DeepL ...</string>
+				<string>Translating to language "EN" using DeepL ...</string>
 				<key>script</key>
-				<string>./deepl.sh -l "FR" "{query}"
+				<string>./deepl.sh -l "EN" "{query}"
 </string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string>deepl.sh</string>
 				<key>subtext</key>
-				<string>Translate to language "FR" using DeepL</string>
+				<string>Translate to language "EN" using DeepL</string>
 				<key>title</key>
 				<string>DeepL Dictionary</string>
 				<key>type</key>
@@ -169,6 +195,37 @@
 			<string>5233F7C8-9221-45A4-BDE0-DE53175096E1</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>1</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>14</integer>
+				<key>hotmod</key>
+				<integer>1835008</integer>
+				<key>hotstring</key>
+				<string>E</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>CAA19D9E-04B6-4AD4-A8DC-0B683215DD14</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -257,7 +314,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>dl</string>
+				<string>dl-to-de</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -267,15 +324,15 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>Translating to language "{var:DEEPL_TARGET}" using DeepL ...</string>
+				<string>Translating to language "de" using DeepL ...</string>
 				<key>script</key>
-				<string>DEEPL_KEY="$DEEPL_KEY" ./deepl.sh -l "$DEEPL_TARGET" "{query}"</string>
+				<string>DEEPL_KEY="$DEEPL_KEY" ./deepl.sh -l "de" "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string>deepl.sh</string>
 				<key>subtext</key>
-				<string>Translate to language "{var:DEEPL_TARGET}" using DeepL</string>
+				<string>Translate to language "de" using DeepL</string>
 				<key>title</key>
 				<string>DeepL Dictionary</string>
 				<key>type</key>
@@ -381,6 +438,55 @@ fi</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>dl</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Translating to language "{var:DEEPL_TARGET}" using DeepL ...</string>
+				<key>script</key>
+				<string>DEEPL_KEY="$DEEPL_KEY" ./deepl.sh -l "$DEEPL_TARGET" "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string>deepl.sh</string>
+				<key>subtext</key>
+				<string>Translate to language "{var:DEEPL_TARGET}" using DeepL</string>
+				<key>title</key>
+				<string>DeepL Dictionary</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>AD7C89C1-0978-4469-B62F-245E595DE9BD</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Using the keyword 'dl' will translate a sentence using deepl.com. You can configure the target language in the workflow configuration.
@@ -443,6 +549,24 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>ypos</key>
 			<integer>30</integer>
 		</dict>
+		<key>AD7C89C1-0978-4469-B62F-245E595DE9BD</key>
+		<dict>
+			<key>note</key>
+			<string>Use this keyword to start the translation to the configured language.</string>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>490</integer>
+		</dict>
+		<key>CAA19D9E-04B6-4AD4-A8DC-0B683215DD14</key>
+		<dict>
+			<key>note</key>
+			<string>Send any selected text to the translator using this hotkey.</string>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
 		<key>D7D47F17-02DB-4A30-8F14-C03CBD051929</key>
 		<dict>
 			<key>note</key>
@@ -466,10 +590,10 @@ To avoid the error message 'too many requests', please configure your free (or p
 		<key>DEEPL_SOURCE</key>
 		<string>auto</string>
 		<key>DEEPL_TARGET</key>
-		<string>DE</string>
+		<string>en</string>
 	</dict>
 	<key>version</key>
-	<string>1.7</string>
+	<string>1.8</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

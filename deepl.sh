@@ -92,7 +92,7 @@ if [ -n "$KEY" ]; then
   else
     url="https://api-free.deepl.com/v2/translate"
   fi
-  result=$(curl -s -X POST 'https://api-free.deepl.com/v2/translate' -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
+  result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
   echo "$result" | "$PARSER" -r '{items: [.translations[] | {uid: null, arg:.text, valid: "yes", autocomplete: "autocomplete",title: .text}]}'
 else
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' \

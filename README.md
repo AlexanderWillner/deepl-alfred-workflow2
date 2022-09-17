@@ -1,8 +1,6 @@
 # Alfred DeepL Translation Workflow
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2606c47ea1924445b4f81a962dc11700)](https://app.codacy.com/app/AlexanderWillner/deepl-alfred-workflow2?utm_source=github.com&utm_medium=referral&utm_content=AlexanderWillner/deepl-alfred-workflow2&utm_campaign=Badge_Grade_Dashboard) [![download](https://img.shields.io/github/downloads/AlexanderWillner/deepl-alfred-workflow2/total)](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
-
-[DeepL.com](https://www.deepl.com/) is a great, new translation service. It provides better translations compared to other popular translation engines. 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1772be5a3aa4423a8dd122877896ce36)](https://www.codacy.com/gh/AlexanderWillner/deepl-alfred-workflow2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AlexanderWillner/deepl-alfred-workflow2&amp;utm_campaign=Badge_Grade) [![download](https://img.shields.io/github/downloads/AlexanderWillner/deepl-alfred-workflow2/total)](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
 
 ## Usage
 
@@ -14,7 +12,8 @@ After 1-2 seconds you get the translation. This is just an example.
 
 ![Result](Screenshot-Result.png)
 
-Press ```↩``` to copy the result or ```⌘ + ↩``` to show result as big screen overlay. You can also translate any selected text within macOS by pressing ```⌃ + ⌥ + ⌘ + d```.
+Press ```↩``` to copy the result or ```⌘ + ↩``` to show result as big screen overlay.
+You can also translate any selected text within macOS by pressing ```⌃ + ⌥ + ⌘ + d```.
 
 Other languages are supported as well:
 
@@ -27,15 +26,14 @@ However, you can also get a (free or paid) [```API key```](https://www.deepl.com
 ## Installing the Workflow
 
 1. Simply download the [last release](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
-2. Unzip the file on your computer
-3. Install `Deepl-Translate.alfredworkflow` by double-clicking the workflow file and clicking on "Import".
+1. Unzip the file on your computer
+1. Install `Deepl-Translate.alfredworkflow` by double-clicking the workflow file and clicking on "Import".
 
 You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 
 Once imported, you may want to take a quick look at the workflow settings and setup what keyword you want to use. Further, you can change the target language in the settings as shown in this screenshot:
 
 ![Config](Screenshot-Config.png)
-
 
 ## Command Line
 

@@ -7,7 +7,8 @@ LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
 LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
 PRO="${DEEPL_PRO:-}"
-VERSION="1.5"
+POSTFIX="${DEEPL_POSTFIX:-.}"
+VERSION="1.8"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 PARSER="jq"
@@ -62,8 +63,8 @@ query="$(echo "$query" | sed 's/\"/\\\"/g')"
 query="$(echo "$query" | sed "s/'/\\\'/g")"
 query="$(echo "$query" | iconv -f utf-8-mac -t utf-8 | xargs)"
 
-if [[ $query != *. ]]; then
-  printJson "End query with a dot"
+if [[ $KEY = "" ]] && [[ $query != *"$POSTFIX"   ]]; then
+  printJson "End query with $POSTFIX"
   exit 1
 fi
 ###############################################################################

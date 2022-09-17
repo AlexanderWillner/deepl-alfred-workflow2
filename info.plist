@@ -457,6 +457,8 @@ To avoid the error message 'too many requests', please configure your free (or p
 	<dict>
 		<key>DEEPL_KEY</key>
 		<string></string>
+		<key>DEEPL_POSTFIX</key>
+		<string>.</string>
 		<key>DEEPL_PREFERRED</key>
 		<string>["DE", "EN"]</string>
 		<key>DEEPL_PRO</key>

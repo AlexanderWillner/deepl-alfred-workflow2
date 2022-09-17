@@ -6,7 +6,7 @@
 
 ## Usage
 
-To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated and end the input with ```.```. The source language will be inferred automatically and the target language can be configured.
+To activate this workflow use the default keyword ```dl```, enter the passage you wanna get translated and end the input with ```.``` (not needed if you've an API key). The source language will be inferred automatically and the target language can be configured.
 
 ![Search](Screenshot-Search.png)
 
@@ -16,6 +16,9 @@ After 1-2 seconds you get the translation. This is just an example.
 
 Press ```↩``` to copy the result or ```⌘ + ↩``` to show result as big screen overlay. You can also translate any selected text within macOS by pressing ```⌃ + ⌥ + ⌘ + d```.
 
+Other languages are supported as well:
+
+![Chinese](Screenshot-Chinese.png)
 ## Caveats
 
 Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. This fact and generally some longer sentences might result in the message ```Error: Too many requests.``` (see #5).

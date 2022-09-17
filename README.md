@@ -27,8 +27,8 @@ However, you can also get a (free or paid) [```API key```](https://www.deepl.com
 ## Installing the Workflow
 
 1. Simply download the [last release](https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases)
-1. Unzip the file on your computer
-1. Install `Deepl-Translate.alfredworkflow` by double-clicking the workflow file and clicking on "Import".
+2. Unzip the file on your computer
+3. Install `Deepl-Translate.alfredworkflow` by double-clicking the workflow file and clicking on "Import".
 
 You'll now see the workflow listed in the left sidebar of your Workflows preferences pane.
 

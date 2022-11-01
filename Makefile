@@ -10,8 +10,12 @@ help:
 	@echo " * feedback : create a GitHub issue"
 
 workflow:
-	@rm -f Deepl-Translate.alfredworkflow
+	@rm -f Deepl-Translate.alfredworkflow Deepl-Translate.alfred5workflow
+	@cp info4.plist info.plist
 	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
+	@cp info5.plist info.plist
+	@zip Deepl-Translate.alfred5workflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
+	
 	
 feedback:
 	@open https://github.com/alexanderwillner/deepl-alfred-workflow2/issues

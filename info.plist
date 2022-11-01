@@ -363,7 +363,7 @@
 				<key>script</key>
 				<string># THESE VARIABLES MUST BE SET. SEE THE ONEUPDATER README FOR AN EXPLANATION OF EACH.
 readonly remote_info_plist='https://raw.githubusercontent.com/AlexanderWillner/deepl-alfred-workflow2/master/info.plist'
-readonly workflow_url='https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases/latest/download/Deepl-Translate.alfredworkflow'
+readonly workflow_url='https://github.com/AlexanderWillner/deepl-alfred-workflow2/releases/latest/download/Deepl-Translate.alfred5workflow'
 readonly download_type='direct'
 readonly frequency_check='4'
 
@@ -716,3 +716,4 @@ To avoid the error message 'too many requests', please configure your free (or p
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>
 </plist>
+

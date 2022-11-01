@@ -9,13 +9,19 @@ help:
 	@echo " * harden   : harden shell scripts"
 	@echo " * feedback : create a GitHub issue"
 
-workflow:
-	@rm -f Deepl-Translate.alfredworkflow Deepl-Translate.alfred5workflow
+workflow: workflow4 workflow5
+
+workflow4:
+	@rm -f Deepl-Translate.alfredworkflow
 	@cp info4.plist info.plist
 	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
+	@rm info.plist
+
+workflow5:
+	@rm -f Deepl-Translate.alfred5workflow
 	@cp info5.plist info.plist
 	@zip Deepl-Translate.alfred5workflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
-	
+	@rm info.plist
 	
 feedback:
 	@open https://github.com/alexanderwillner/deepl-alfred-workflow2/issues

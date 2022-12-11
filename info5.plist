@@ -599,7 +599,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 		</dict>
 	</array>
 	<key>version</key>
-	<string>1.9</string>
+	<string>1.10</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

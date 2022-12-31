@@ -71,7 +71,7 @@ fi
 
 # prepare query ###############################################################
 # shellcheck disable=SC2001
-query="$(echo "$query" | sed 's/.$//')"
+query="$(echo "$query" | sed "s/\\$POSTFIX$//")"
 data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":'"${LANGUAGE_PREFERRED}"',"source_lang_user_selected":"'"${LANGUAGE_SOURCE}"'","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
 HEADER=(
   --compressed

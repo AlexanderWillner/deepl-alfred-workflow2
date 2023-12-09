@@ -84,7 +84,17 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>91D16594-908E-4665-A005-0B715D96E5C2</string>
+				<string>A222FB0A-D703-4C45-9CB0-4EDEA3399BEF</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>61BF4F8C-DC18-4BB4-8DDD-A87C45C0F79E</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -448,9 +458,9 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Use this keyword to start the translation to the configured language.</string>
 			<key>xpos</key>
-			<real>40</real>
+			<real>220</real>
 			<key>ypos</key>
-			<real>490</real>
+			<real>500</real>
 		</dict>
 		<key>CAA19D9E-04B6-4AD4-A8DC-0B683215DD14</key>
 		<dict>
@@ -598,8 +608,10 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<string>DEEPL_POSTFIX</string>
 		</dict>
 	</array>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>1.11</string>
+	<string>1.12</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

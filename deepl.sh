@@ -8,14 +8,13 @@ LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
 PRO="${DEEPL_PRO:-}"
 POSTFIX="${DEEPL_POSTFIX:-.}"
-VERSION="1.12"
+VERSION="1.13"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 PARSER="jq"
 if ! type "$PARSER" >/dev/null 2>&1; then
-  PARSER="${DIR}/jq-dist"
-  xattr -dr com.apple.quarantine "$PARSER"
-  chmod +x "$PARSER"
+  echo "Binary '$PARSER' not found. Install it via 'brew install jq'." >&2
+  exit 1
 fi
 ###############################################################################
 

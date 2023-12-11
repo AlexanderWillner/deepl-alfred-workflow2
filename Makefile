@@ -14,13 +14,13 @@ workflow: workflow4 workflow5
 workflow4:
 	@rm -f Deepl-Translate.alfredworkflow
 	@cp info4.plist info.plist
-	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
+	@zip Deepl-Translate.alfredworkflow icon.png info.plist deepl.sh
 	@rm info.plist
 
 workflow5:
 	@rm -f Deepl-Translate.alfred5workflow
 	@cp info5.plist info.plist
-	@zip Deepl-Translate.alfred5workflow icon.png info.plist deepl.sh jq-dist jq-LICENSE
+	@zip Deepl-Translate.alfred5workflow icon.png info.plist deepl.sh
 	@rm info.plist
 	
 feedback:

@@ -11,11 +11,6 @@ POSTFIX="${DEEPL_POSTFIX:-.}"
 VERSION="1.13"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-PARSER="jq"
-if ! type "$PARSER" >/dev/null 2>&1; then
-  echo "Binary '$PARSER' not found. Install it via 'brew install jq'." >&2
-  exit 1
-fi
 ###############################################################################
 
 # helper functions ############################################################
@@ -92,16 +87,30 @@ if [ -n "$KEY" ]; then
     url="https://api-free.deepl.com/v2/translate"
   fi
   result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
-  echo "$result" | "$PARSER" -r '{items: [.translations[] | {uid: null, arg:.text, valid: "yes", autocomplete: "autocomplete",title: .text}]}'
+  osascript -l JavaScript -e 'function run(argv) {
+    const translations = JSON.parse(argv[0])["translations"].map(item => ({
+      title: item["text"],
+      arg: item["text"]
+    }))
+
+    return JSON.stringify({ items: translations })
+  }' "$result"
 else
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
     "${HEADER[@]}" \
     --data-binary $"$data")
   if [[ $result == *'"error":{"code":'* ]]; then
-    message=$(echo "$result" | "$PARSER" -r '.["error"]|.message')
+    message="$(osascript -l JavaScript -e 'function run(argv) { return JSON.parse(argv[0])["error"]["message"] }')"
     printJson "Error: $message"
   else
-    echo "$result" | "$PARSER" -r '{items: [.result.translations[0].beams[] | {uid: null, arg:.postprocessed_sentence, valid: "yes", autocomplete: "autocomplete",title: .postprocessed_sentence}]}'
+    osascript -l JavaScript -e 'function run(argv) {
+      const translations = JSON.parse(argv[0])["result"]["translations"][0]["beams"].map(item => ({
+        title: item["postprocessed_sentence"],
+        arg: item["postprocessed_sentence"]
+      }))
+
+      return JSON.stringify({ items: translations })
+    }' "$result"
   fi
 fi
 ###############################################################################

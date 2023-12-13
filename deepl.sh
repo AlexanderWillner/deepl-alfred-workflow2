@@ -93,7 +93,7 @@ if [ -n "$KEY" ]; then
       arg: item["text"]
     }))
 
-    return JSON.stringify({ items: translations })
+    return JSON.stringify({ items: translations }, null, 2)
   }' "$result"
 else
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
@@ -109,7 +109,7 @@ else
         arg: item["postprocessed_sentence"]
       }))
 
-      return JSON.stringify({ items: translations })
+      return JSON.stringify({ items: translations }, null, 2)
     }' "$result"
   fi
 fi

@@ -94,7 +94,7 @@ if [ -n "$KEY" ]; then
     }))
 
     return JSON.stringify({ items: translations }, null, 2)
-  }' "$result"
+  }' "$result" || echo >&2 "ERROR: Input '$result'"
 else
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
     "${HEADER[@]}" \
@@ -110,7 +110,7 @@ else
       }))
 
       return JSON.stringify({ items: translations }, null, 2)
-    }' "$result"
+    }' "$result" || echo >&2 "ERROR: Input '$result'"
   fi
 fi
 ###############################################################################

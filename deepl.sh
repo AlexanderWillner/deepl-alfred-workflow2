@@ -86,7 +86,9 @@ if [ -n "$KEY" ]; then
   else
     url="https://api-free.deepl.com/v2/translate"
   fi
+  echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' -d 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
   result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
+  echo >&2 "$result"
   osascript -l JavaScript -e 'function run(argv) {
     const translations = JSON.parse(argv[0])["translations"].map(item => ({
       title: item["text"],
@@ -94,11 +96,13 @@ if [ -n "$KEY" ]; then
     }))
 
     return JSON.stringify({ items: translations }, null, 2)
-  }' "$result" || echo >&2 "ERROR: Input '$result'"
+  }' "$result" || echo >&2 "ERROR w/ key: result '$result', query '$query'"
 else
+  echo >&2 "curl -s 'https://www2.deepl.com/jsonrpc' '${HEADER[@]}' --data-binary $'$data'"
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
     "${HEADER[@]}" \
     --data-binary $"$data")
+  echo >&2 "$result"
   if [[ $result == *'"error":{"code":'* ]]; then
     message="$(osascript -l JavaScript -e 'function run(argv) { return JSON.parse(argv[0])["error"]["message"] }')"
     printJson "Error: $message"
@@ -110,7 +114,7 @@ else
       }))
 
       return JSON.stringify({ items: translations }, null, 2)
-    }' "$result" || echo >&2 "ERROR: Input '$result'"
+    }' "$result" || echo >&2 "ERROR w/o key: result '$result', query '$query'"
   fi
 fi
 ###############################################################################

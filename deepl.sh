@@ -8,7 +8,7 @@ LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
 PRO="${DEEPL_PRO:-}"
 POSTFIX="${DEEPL_POSTFIX:-.}"
-VERSION="2.0.1"
+VERSION="2.1.0"
 PATH="$PATH:/usr/local/bin/"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ###############################################################################
@@ -59,7 +59,7 @@ query="$(echo "$query" | iconv -f utf-8-mac -t utf-8 | xargs)"
 
 if [[ $KEY = "" ]] && [[ $query != *"$POSTFIX"   ]]; then
   printJson "End query with $POSTFIX"
-  exit 1
+  exit 2
 fi
 ###############################################################################
 
@@ -88,7 +88,21 @@ if [ -n "$KEY" ]; then
   fi
   echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' -d 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
   result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
-  echo >&2 "$result"
+  ret=$?
+  if [[ "x$ret" != "x0" ]] || [[ "$result" == "" ]]; then
+    echo >&2 "$ret: $result"
+    http_code=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}" -w %{http_code} -o /dev/null)
+    if [[ $http_code -eq 403 ]]; then
+      printJson "Error: Invalid API key"
+      exit 3
+    fi
+    if [[ $ret -eq 6 ]]; then
+      printJson "Error: DNS resolution failed - no Internet connection?"
+      exit 4
+    fi
+    printJson "Error Code $ret - HTTP Code $http_code"
+    exit 5
+  fi
   osascript -l JavaScript -e 'function run(argv) {
     const translations = JSON.parse(argv[0])["translations"].map(item => ({
       title: item["text"],
@@ -99,13 +113,22 @@ if [ -n "$KEY" ]; then
   }' "$result" || echo >&2 "ERROR w/ key: result '$result', query '$query'"
 else
   echo >&2 "curl -s 'https://www2.deepl.com/jsonrpc' '${HEADER[@]}' --data-binary $'$data'"
-  result=$(curl -s 'https://www2.deepl.com/jsonrpc' \
-    "${HEADER[@]}" \
-    --data-binary $"$data")
-  echo >&2 "$result"
+  result=$(curl -s 'https://www2.deepl.com/jsonrpc' "${HEADER[@]}" --data-binary $"$data")
+  ret=$?
+  if [[ "x$ret" != "x0" ]] || [[ "$result" == "" ]]; then
+    echo >&2 "$ret: $result"
+    http_code=$(curl -s 'https://www2.deepl.com/jsonrpc' "${HEADER[@]}" --data-binary $"$data" -w %{http_code} -o /dev/null)
+    if [[ $ret -eq 6 ]]; then
+      printJson "Error: DNS resolution failed - no Internet connection?"
+      exit 6
+    fi
+    printJson "Error Code $ret - HTTP Code $http_code"
+    exit 7
+  fi
   if [[ $result == *'"error":{"code":'* ]]; then
     message="$(osascript -l JavaScript -e 'function run(argv) { return JSON.parse(argv[0])["error"]["message"] }')"
     printJson "Error: $message"
+    exit 8
   else
     osascript -l JavaScript -e 'function run(argv) {
       const translations = JSON.parse(argv[0])["result"]["translations"][0]["beams"].map(item => ({

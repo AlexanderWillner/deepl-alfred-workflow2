@@ -86,12 +86,13 @@ if [ -n "$KEY" ]; then
   else
     url="https://api-free.deepl.com/v2/translate"
   fi
-  echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' -d 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
-  result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}")
+
+  echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' --data-urlencode 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
+  result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}")
   ret=$?
   if [[ "x$ret" != "x0" ]] || [[ "$result" == "" ]]; then
     echo >&2 "$ret: $result"
-    http_code=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" -d "text=$query" -d "target_lang=${LANGUAGE:-EN}" -w %{http_code} -o /dev/null)
+    http_code=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}" -w %{http_code} -o /dev/null)
     if [[ $http_code -eq 403 ]]; then
       printJson "Error: Invalid API key"
       exit 3

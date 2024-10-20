@@ -7,6 +7,7 @@ LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
 LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
 PRO="${DEEPL_PRO:-}"
+# see https://developers.deepl.com/docs/api-reference/translate/openapi-spec-for-text-translation
 FORMALITY="${DEEPL_FORMALITY:-prefer_less}"
 POSTFIX="${DEEPL_POSTFIX:-.}"
 VERSION="2.1.0"

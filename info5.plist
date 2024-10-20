@@ -643,6 +643,27 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>config</key>
 			<dict>
 				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>E.g., http://localhost:1188.</string>
+			<key>label</key>
+			<string>DeepLX Host</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>DEEPL_HOST</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
 				<string>["DE", "EN"]</string>
 				<key>placeholder</key>
 				<string></string>

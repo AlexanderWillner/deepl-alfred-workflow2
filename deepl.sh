@@ -86,6 +86,9 @@ if [ -n "$KEY" ]; then
   else
     url="https://api-free.deepl.com/v2/translate"
   fi
+  if [ ! -z "$DEEPL_HOST" ]; then
+    url="$DEEPL_HOST/v2/translate"
+  fi
 
   echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' --data-urlencode 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
   result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}")

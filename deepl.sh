@@ -7,6 +7,7 @@ LANGUAGE_SOURCE="${DEEPL_SOURCE:-auto}"
 LANGUAGE_PREFERRED="${DEEPL_PREFERRED:-[\"DE\",\"EN\"]}"
 KEY="${DEEPL_KEY:-}"
 PRO="${DEEPL_PRO:-}"
+FORMALITY="${DEEPL_FORMALITY:-prefer_less}"
 POSTFIX="${DEEPL_POSTFIX:-.}"
 VERSION="2.1.0"
 PATH="$PATH:/usr/local/bin/"
@@ -66,7 +67,7 @@ fi
 # prepare query ###############################################################
 # shellcheck disable=SC2001
 query="$(echo "$query" | sed "s/\\$POSTFIX$//")"
-data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":'"${LANGUAGE_PREFERRED}"',"source_lang_user_selected":"'"${LANGUAGE_SOURCE}"'","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":-1,"timestamp":1557063997314},"id":79120002}'
+data='{"jsonrpc":"2.0","method": "LMT_handle_jobs","params":{"commonJobParams": {"formality": "'"$FORMALITY"'", "browserType": 1, "mode": "translate", "textType": "plaintext"}, "jobs":[{"kind":"default","raw_en_sentence":"'"$query"'","preferred_num_beams":4,"raw_en_context_before":[],"raw_en_context_after":[],"quality":"fast"}],"lang":{"user_preferred_langs":'"${LANGUAGE_PREFERRED}"',"source_lang_user_selected":"'"${LANGUAGE_SOURCE}"'","target_lang":"'"${LANGUAGE:-EN}"'"},"priority":1,"timestamp":1557063997314},"id":79120002}'
 HEADER=(
   --compressed
   -H 'authority: www2.deepl.com'
@@ -90,12 +91,12 @@ if [ -n "$KEY" ]; then
     url="$DEEPL_HOST/v2/translate"
   fi
 
-  echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' --data-urlencode 'text=$query' -d 'target_lang=${LANGUAGE:-EN}'"
-  result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}")
+  echo >&2 "curl -s -X POST '$url' -H 'Authorization: DeepL-Auth-Key $KEY' --data-urlencode 'text=$query' -d 'formality=$FORMALITY' -d 'target_lang=${LANGUAGE:-EN}'"
+  result=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "formality=$FORMALITY" -d "target_lang=${LANGUAGE:-EN}")
   ret=$?
   if [[ "x$ret" != "x0" ]] || [[ "$result" == "" ]]; then
     echo >&2 "$ret: $result"
-    http_code=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}" -w %{http_code} -o /dev/null)
+    http_code=$(curl -s -X POST "$url" -H "Authorization: DeepL-Auth-Key $KEY" --data-urlencode "text=$query" -d "target_lang=${LANGUAGE:-EN}" -d "formality=$FORMALITY" -w %{http_code} -o /dev/null)
     if [[ $http_code -eq 403 ]]; then
       printJson "Error: Invalid API key"
       exit 3

@@ -19,6 +19,10 @@ Other languages are supported as well:
 
 ![Chinese](Screenshot-Chinese.png)
 
+To quickly change the target language, you can use the ```dll``` keyword:
+
+![Result](Screenshot-DLL.png)
+
 ## Caveats
 
 Please note that the DeepL API is designed to translate up to 600 characters per minute and per customer only. This fact and generally some longer sentences might result in the message ```Error: Too many requests.``` (see #5).

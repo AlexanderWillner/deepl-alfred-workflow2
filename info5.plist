@@ -103,11 +103,37 @@
 				<false/>
 			</dict>
 		</array>
+		<key>B8B726E5-529C-4F1A-902E-A66B1589922D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA3683E7-31BA-4DE1-9796-2EAB971CA593</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>CAA19D9E-04B6-4AD4-A8DC-0B683215DD14</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>5233F7C8-9221-45A4-BDE0-DE53175096E1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DA3683E7-31BA-4DE1-9796-2EAB971CA593</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD7C89C1-0978-4469-B62F-245E595DE9BD</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -357,6 +383,62 @@
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>dll</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>langs=(${(s/,/)${DEEPL_PREFERRED//[\[\]\" ]/}})
+
+out=''
+for file in $langs; do
+	out="${out:+$out,}{\"title\":\"$file\",\"arg\":\"$file\"}"
+done
+
+echo "{\"items\":[$out]}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Select Language</string>
+				<key>type</key>
+				<integer>11</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>B8B726E5-529C-4F1A-902E-A66B1589922D</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
@@ -402,6 +484,26 @@
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>DEEPL_TARGET</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>DA3683E7-31BA-4DE1-9796-2EAB971CA593</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Using the keyword 'dl' will translate a sentence using deepl.com. You can configure the target language in the workflow configuration.
@@ -413,7 +515,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Use this keyword to start the translation to an alternative hard coded language.</string>
 			<key>xpos</key>
-			<real>210</real>
+			<real>300</real>
 			<key>ypos</key>
 			<real>30</real>
 		</dict>
@@ -422,7 +524,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Copy translated text to the clipboard.</string>
 			<key>xpos</key>
-			<real>490</real>
+			<real>580</real>
 			<key>ypos</key>
 			<real>270</real>
 		</dict>
@@ -431,7 +533,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Send any selected text to the translator using this hotkey.</string>
 			<key>xpos</key>
-			<real>40</real>
+			<real>130</real>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
@@ -440,7 +542,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Use this keyword to start the translation to the configured language.</string>
 			<key>xpos</key>
-			<real>220</real>
+			<real>310</real>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
@@ -449,7 +551,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Show translation as large text.</string>
 			<key>xpos</key>
-			<real>480</real>
+			<real>570</real>
 			<key>ypos</key>
 			<real>30</real>
 		</dict>
@@ -458,7 +560,14 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Use this keyword to start the translation to the configured language.</string>
 			<key>xpos</key>
-			<real>220</real>
+			<real>310</real>
+			<key>ypos</key>
+			<real>500</real>
+		</dict>
+		<key>B8B726E5-529C-4F1A-902E-A66B1589922D</key>
+		<dict>
+			<key>xpos</key>
+			<real>30</real>
 			<key>ypos</key>
 			<real>500</real>
 		</dict>
@@ -467,7 +576,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Send any selected text to the translator using this hotkey.</string>
 			<key>xpos</key>
-			<real>30</real>
+			<real>120</real>
 			<key>ypos</key>
 			<real>40</real>
 		</dict>
@@ -476,9 +585,16 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<key>note</key>
 			<string>Show a notifciation when text was copied to the clipboard.</string>
 			<key>xpos</key>
-			<real>680</real>
+			<real>770</real>
 			<key>ypos</key>
 			<real>270</real>
+		</dict>
+		<key>DA3683E7-31BA-4DE1-9796-2EAB971CA593</key>
+		<dict>
+			<key>xpos</key>
+			<real>205</real>
+			<key>ypos</key>
+			<real>530</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>

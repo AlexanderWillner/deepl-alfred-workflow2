@@ -9,7 +9,7 @@ help:
 	@echo " * harden   : harden shell scripts"
 	@echo " * feedback : create a GitHub issue"
 
-workflow: workflow4 workflow5
+workflow: dyntest workflow4 workflow5
 
 workflow4:
 	@rm -f Deepl-Translate.alfredworkflow
@@ -30,6 +30,10 @@ bats:
 	@echo "Running dynamic tests..."
 	@type bats >/dev/null 2>&1 || (echo "Run 'brew install bats-core' first." >&2 ; exit 1)
 	@bats deepl.bats
+
+dyntest:
+	@DEEPL_KEY= ./deepl.sh -l EN "Guten Morgen." 2>&1|grep "Good morning"
+	@./deepl.sh -l EN "Guten Morgen." 2>&1|grep "Good morning"
 
 test:
 	@echo "Running first round of shell checks..."

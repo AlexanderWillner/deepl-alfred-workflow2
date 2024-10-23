@@ -665,19 +665,28 @@ To avoid the error message 'too many requests', please configure your free (or p
 			<dict>
 				<key>default</key>
 				<string>default</string>
-				<key>placeholder</key>
-				<string>default, more, less, prefer_more, prefer_less.</string>
-				<key>required</key>
-				<false/>
-				<key>trim</key>
-				<true/>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>More Formal</string>
+						<string>prefer_more</string>
+					</array>
+					<array>
+						<string>Less Formal</string>
+						<string>prefer_less</string>
+					</array>
+					<array>
+						<string>Default</string>
+						<string>default</string>
+					</array>
+				</array>
 			</dict>
 			<key>description</key>
 			<string>Sets whether the translated text should lean towards formal or informal language.</string>
 			<key>label</key>
 			<string>Formality</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>popupbutton</string>
 			<key>variable</key>
 			<string>DEEPL_FORMALITY</string>
 		</dict>
@@ -769,7 +778,7 @@ To avoid the error message 'too many requests', please configure your free (or p
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.2.1</string>
+	<string>2.2.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/AlexanderWillner/deepl-alfred-workflow2</string>
 </dict>

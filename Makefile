@@ -22,10 +22,10 @@ workflow5:
 	@cp info5.plist info.plist
 	@zip Deepl-Translate.alfred5workflow icon.png info.plist deepl.sh
 	@rm info.plist
-	
+
 feedback:
 	@open https://github.com/alexanderwillner/deepl-alfred-workflow2/issues
-		
+
 bats:
 	@echo "Running dynamic tests..."
 	@type bats >/dev/null 2>&1 || (echo "Run 'brew install bats-core' first." >&2 ; exit 1)
@@ -45,7 +45,7 @@ test:
 
 harden:
 	@shellharden --replace deepl.sh
-	
+
 style:
 	@type shfmt >/dev/null 2>&1 || (echo "Run 'brew install shfmt' first." >&2 ; exit 1)
 	@shfmt -i 2 -w -s *.sh

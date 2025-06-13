@@ -115,17 +115,38 @@ if [ -n "$KEY" ]; then
     exit 5
   fi
   osascript -l JavaScript -e 'function run(argv) {
-    const translations = JSON.parse(argv[0])["translations"].map(item => ({
-      title: item["text"],
-      arg: item["text"]
-    }))
-
-    return JSON.stringify({ items: translations }, null, 2)
-  }' "$result" || echo >&2 "ERROR w/ key: result '$result', query '$query'"
+    try {
+      const parsed = JSON.parse(argv[0]);
+      if (!parsed || !parsed.translations) {
+        throw new Error("Invalid response structure");
+      }
+      const translations = parsed.translations.map(item => ({
+        title: item["text"],
+        arg: item["text"]
+      }));
+      return JSON.stringify({ items: translations }, null, 2);
+    } catch(e) {
+      return JSON.stringify({ 
+        items: [{ 
+          title: "Error parsing response: " + e.message, 
+          arg: "error",
+          valid: false 
+        }] 
+      }, null, 2);
+    }
+  }' "$result" || {
+    echo >&2 "ERROR w/ key: result '$result', query '$query'"
+    printJson "Error: Failed to parse translation response"
+    exit 10
+  }
 else
   echo >&2 "curl -s 'https://www2.deepl.com/jsonrpc' '${HEADER[@]}' --data-binary $'$data'"
   result=$(curl -s 'https://www2.deepl.com/jsonrpc' "${HEADER[@]}" --data-binary $"$data")
   ret=$?
+  echo >&2 "DEBUG: curl exit code: $ret"
+  echo >&2 "DEBUG: result length: ${#result}"
+  echo >&2 "DEBUG: result first 200 chars: ${result:0:200}"
+  
   if [[ "x$ret" != "x0" ]] || [[ "$result" == "" ]]; then
     echo >&2 "$ret: $result"
     http_code=$(curl -s 'https://www2.deepl.com/jsonrpc' "${HEADER[@]}" --data-binary $"$data" -w %{http_code} -o /dev/null)
@@ -136,19 +157,49 @@ else
     printJson "Error Code $ret - HTTP Code $http_code"
     exit 7
   fi
+  # Validate JSON before parsing
+  if ! echo "$result" | python3 -m json.tool > /dev/null 2>&1; then
+    echo >&2 "ERROR: Invalid JSON response: $result"
+    printJson "Error: Invalid JSON response from DeepL"
+    exit 8
+  fi
+  
   if [[ $result == *'"error":{"code":'* ]]; then
-    message="$(osascript -l JavaScript -e 'function run(argv) { return JSON.parse(argv[0])["error"]["message"] }')"
+    message="$(osascript -l JavaScript -e 'function run(argv) { 
+      try {
+        return JSON.parse(argv[0])["error"]["message"] 
+      } catch(e) {
+        return "JSON parse error: " + e.message
+      }
+    }' "$result")"
     printJson "Error: $message"
     exit 8
   else
     osascript -l JavaScript -e 'function run(argv) {
-      const translations = JSON.parse(argv[0])["result"]["translations"][0]["beams"].map(item => ({
-        title: item["postprocessed_sentence"],
-        arg: item["postprocessed_sentence"]
-      }))
-
-      return JSON.stringify({ items: translations }, null, 2)
-    }' "$result" || echo >&2 "ERROR w/o key: result '$result', query '$query'"
+      try {
+        const parsed = JSON.parse(argv[0]);
+        if (!parsed || !parsed.result || !parsed.result.translations || !parsed.result.translations[0] || !parsed.result.translations[0].beams) {
+          throw new Error("Invalid response structure");
+        }
+        const translations = parsed.result.translations[0].beams.map(item => ({
+          title: item["postprocessed_sentence"],
+          arg: item["postprocessed_sentence"]
+        }));
+        return JSON.stringify({ items: translations }, null, 2);
+      } catch(e) {
+        return JSON.stringify({ 
+          items: [{ 
+            title: "Error parsing response: " + e.message, 
+            arg: "error",
+            valid: false 
+          }] 
+        }, null, 2);
+      }
+    }' "$result" || {
+      echo >&2 "ERROR w/o key: result '$result', query '$query'"
+      printJson "Error: Failed to parse translation response"
+      exit 9
+    }
   fi
 fi
 ###############################################################################
